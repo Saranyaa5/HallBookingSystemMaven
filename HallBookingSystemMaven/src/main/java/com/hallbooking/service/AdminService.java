@@ -66,7 +66,7 @@ public class AdminService {
             System.out.print("Enter Capacity: ");
             int capacity = scanner.nextInt();
             scanner.nextLine(); 
-            System.out.print("Enter Amenities (comma-separated): ");
+            System.out.print("Enter Amenities: ");
             String amenities = scanner.nextLine();
             System.out.print("Enter Location: ");
             String location = scanner.nextLine();

@@ -11,7 +11,7 @@ public class App {
 
         while (true) {
             try {
-                System.out.println("Enter the application as:");
+                System.out.println("\nEnter the application as:");
                 System.out.println("1. Customer");
                 System.out.println("2. Admin");
                 System.out.println("3. Exit the application");
@@ -23,7 +23,7 @@ public class App {
                     continue;
                 }
                 int choice = scanner.nextInt();
-                scanner.nextLine(); 
+                scanner.nextLine();
 
                 switch (choice) {
                     case 1:
