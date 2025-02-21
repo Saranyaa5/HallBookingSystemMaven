@@ -61,26 +61,25 @@ public class AdminService {
         }
     }
 
-    private void addHall(Scanner scanner) {
+    private void addHall(Scanner sc) {
         try {
             System.out.print("Enter Hall ID: ");
-            String hallId = scanner.nextLine();
+            String hallId = sc.nextLine();
             System.out.print("Enter Hall Name: ");
-            String hallName = scanner.nextLine();
+            String hallName = sc.nextLine();
             System.out.print("Enter Capacity: ");
-            int capacity = scanner.nextInt();
-            scanner.nextLine(); 
+            int capacity = sc.nextInt();
+            sc.nextLine(); 
             System.out.print("Enter Amenities (comma-separated): ");
-            String amenities = scanner.nextLine();
+            String amenities = sc.nextLine();
             System.out.print("Enter Location: ");
-            String location = scanner.nextLine();
+            String location = sc.nextLine();
 
             Hall hall = new Hall(hallId, hallName, capacity, amenities, location);
 
             if (hallDAO.addHall(hall)) {
                 System.out.println("Hall added successfully.");
-            } 
-            else {
+            } else {
                 System.out.println("Error adding hall. Please try again.");
             }
         } 
@@ -101,12 +100,10 @@ public class AdminService {
 
             if (hallDAO.deleteHall(hallId)) {
                 System.out.println("Hall deleted successfully.");
-            } 
-            else {
+            } else {
                 System.out.println("Hall deletion failed (Hall might not exist or has bookings).");
             }
-        }  
-        catch (Exception e) {
+        }  catch (Exception e) {
             System.err.println("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         }
