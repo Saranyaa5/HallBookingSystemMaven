@@ -2,8 +2,6 @@ package com.hallbooking.service;
 
 import com.hallbooking.dao.HallDAO;
 import com.hallbooking.model.Hall;
-
-import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -49,31 +47,29 @@ public class AdminService {
                     default:
                         System.out.println("Invalid choice. Please enter a valid option.");
                 }
-            } 
-            catch (InputMismatchException e) {
+            } catch (InputMismatchException e) {
                 System.err.println("Invalid input! Please enter a number.");
                 scanner.nextLine();
-            } 
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.err.println("Unexpected error occurred: " + e.getMessage());
                 e.printStackTrace();
             }
         }
     }
 
-    private void addHall(Scanner sc) {
+    private void addHall(Scanner scanner) {
         try {
             System.out.print("Enter Hall ID: ");
-            String hallId = sc.nextLine();
+            String hallId = scanner.nextLine();
             System.out.print("Enter Hall Name: ");
-            String hallName = sc.nextLine();
+            String hallName = scanner.nextLine();
             System.out.print("Enter Capacity: ");
-            int capacity = sc.nextInt();
-            sc.nextLine(); 
-            System.out.print("Enter Amenities (comma-separated): ");
-            String amenities = sc.nextLine();
+            int capacity = scanner.nextInt();
+            scanner.nextLine(); 
+            System.out.print("Enter Amenities: ");
+            String amenities = scanner.nextLine();
             System.out.print("Enter Location: ");
-            String location = sc.nextLine();
+            String location = scanner.nextLine();
 
             Hall hall = new Hall(hallId, hallName, capacity, amenities, location);
 
@@ -82,12 +78,10 @@ public class AdminService {
             } else {
                 System.out.println("Error adding hall. Please try again.");
             }
-        } 
-        catch (InputMismatchException e) {
+        } catch (InputMismatchException e) {
             System.err.println("Invalid input for capacity! Please enter a valid number.");
             scanner.nextLine(); 
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         }
