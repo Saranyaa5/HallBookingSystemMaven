@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class HallDAO {
-	//NEW INSERT FOR HALLDAO
     public boolean addHall(Hall hall) {
         String query = "INSERT INTO HALLBOOKINGSYSTEM.halls (hall_id, hall_name, capacity, amenities, location) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
