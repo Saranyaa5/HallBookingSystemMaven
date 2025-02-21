@@ -63,9 +63,9 @@ public class AdminService {
 
         Hall hall = new Hall(hallId, hallName, capacity, amenities, location);
         if (hallDAO.addHall(hall)) {
-            System.out.println("✅ Hall added successfully.");
+            System.out.println("Hall added successfully.");
         } else {
-            System.out.println("❌ Error adding hall.");
+            System.out.println(" Error adding hall.");
         }
     }
 
@@ -73,9 +73,9 @@ public class AdminService {
         System.out.print("Enter Hall ID to delete: ");
         String hallId = scanner.nextLine();
         if (hallDAO.deleteHall(hallId)) {
-            System.out.println("✅ Hall deleted successfully.");
+            System.out.println("Hall deleted successfully.");
         } else {
-            System.out.println("❌ Hall deletion failed (Hall might not exist or has bookings).");
+            System.out.println(" Hall deletion failed (Hall might not exist or has bookings).");
         }
     }
 }
