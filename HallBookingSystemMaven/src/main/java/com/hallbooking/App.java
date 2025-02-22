@@ -1,8 +1,10 @@
 package com.hallbooking;
+
 import com.hallbooking.service.AdminService;
 import com.hallbooking.service.CustomerService;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
 public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -10,9 +12,8 @@ public class App {
 
         while (true) {
             try {
-            	System.out.println("WELCOME TO HALL BOOKING SYSTEM.....");
-            	System.out.println("🙏🙏✨Vanakkam Vandanam Namaste✨🙏🙏");
-                System.out.println("\nEnter the application as:");
+                System.out.println("\nWelcome to the Hall Booking System!");
+                System.out.println("Enter the application as:");
                 System.out.println("1. Customer");
                 System.out.println("2. Admin");
                 System.out.println("3. Exit the application");
@@ -23,6 +24,7 @@ public class App {
                     scanner.next();
                     continue;
                 }
+
                 int choice = scanner.nextInt();
                 scanner.nextLine();
 

@@ -8,37 +8,54 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CustomerDAO {
+	
     public boolean registerCustomer(Customer customer) {
-        String sql = "INSERT INTO customer (user_id, name, email, pwd) VALUES (customer_id_sequence.NEXTVAL, ?, ?, ?)";
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, customer.getName());
-            statement.setString(2, customer.getEmail());
-            statement.setString(3, customer.getPassword());
-            int rowsInserted = statement.executeUpdate();
-            return rowsInserted > 0;
+        String query = "INSERT INTO HallBookingSystem.customer (user_id, name, email, pwd) VALUES (HallBookingSystem.customer_id_sequence.NEXTVAL, ?, ?, ?)";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+        	
+            pstmt.setString(1, customer.getName());
+            pstmt.setString(2, customer.getEmail());
+            pstmt.setString(3, customer.getPwd());
+            
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0; 
+            
         } catch (SQLException e) {
+      
+            System.err.println("Error registering customer: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
     }
+    
+    public Customer getCustomerByEmailAndPassword(String email, String pwd) {
+       
+        String query = "SELECT * FROM HallBookingSystem.customer WHERE email = ? AND pwd = ?";
 
-    public Customer getCustomerByEmailAndPassword(String email, String password) {
-        String sql = "SELECT * FROM customer WHERE email = ? AND pwd = ?";
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, email);
-            statement.setString(2, password);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+          
+            pstmt.setString(1, email);
+            pstmt.setString(2, pwd);
+
+         
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+           
                 return new Customer(
-                    resultSet.getString("name"),
-                    resultSet.getInt("user_id"),
-                    resultSet.getString("email"),
-                    resultSet.getString("pwd")
+                        rs.getString("name"),
+                        rs.getInt("user_id"),
+                        rs.getString("email"),
+                        rs.getString("pwd")
                 );
             }
+
         } catch (SQLException e) {
+        
+            System.err.println("Error retrieving customer: " + e.getMessage());
             e.printStackTrace();
         }
         return null;
