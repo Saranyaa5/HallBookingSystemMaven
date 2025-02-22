@@ -1,6 +1,7 @@
 package com.hallbooking;
 
 import com.hallbooking.service.AdminService;
+import com.hallbooking.service.CustomerService;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -19,15 +20,16 @@ public class App {
 
                 if (!scanner.hasNextInt()) {
                     System.err.println("Invalid input! Please enter a number.");
-                    scanner.next(); 
+                    scanner.next();
                     continue;
                 }
+
                 int choice = scanner.nextInt();
                 scanner.nextLine();
 
                 switch (choice) {
                     case 1:
-                        System.out.println("Customer functionality coming soon.");
+                        CustomerService.customerMenu(scanner);
                         break;
                     case 2:
                         System.out.print("Enter Username: ");
@@ -51,7 +53,7 @@ public class App {
                 }
             } catch (InputMismatchException e) {
                 System.err.println("Invalid input! Please enter a valid number.");
-                scanner.nextLine(); 
+                scanner.nextLine();
             } catch (Exception e) {
                 System.err.println("Unexpected error occurred: " + e.getMessage());
                 e.printStackTrace();
