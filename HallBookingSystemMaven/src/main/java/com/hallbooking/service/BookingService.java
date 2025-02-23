@@ -47,8 +47,8 @@ public class BookingService {
 	    System.out.print("\nEnter Booking ID to cancel: ");
 	    int bookingId = scanner.nextInt();
 	    scanner.nextLine();  
+	    boolean isCancelled = BookingDAO.cancelBooking(bookingId, userId);
 
-	    boolean isCancelled = BookingDAO.cancelBooking(bookingId);
 	    if (isCancelled) {
 	        System.out.println("Booking cancelled successfully.");
 	    } else {

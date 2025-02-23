@@ -56,7 +56,6 @@ public class HallDAO {
 
 
 
-     
 
 
 
@@ -73,69 +72,4 @@ public class HallDAO {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-//     public boolean deleteHall(String hallId) {
-//         String deleteQuery = "DELETE FROM HALLBOOKINGSYSTEM.halls WHERE hall_id = ?";
-//         try (Connection conn = DBConnection.getConnection();
-//              PreparedStatement deleteStmt = conn.prepareStatement(deleteQuery)) {
-//             deleteStmt.setString(1, hallId);
-//             return deleteStmt.executeUpdate() > 0;
-//         } catch (Exception e) {
-//             e.printStackTrace();
-//             return false;
-//         }
-//     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//public boolean deleteHall(String hallId) {
-//    // String checkQuery = "SELECT * FROM bookings WHERE hall_id = ?";
-//     String deleteQuery = "DELETE FROM HALLBOOKINGSYSTEM.halls WHERE hall_id = ?";
-//     try (Connection conn = DBConnection.getConnection();
-//        // PreparedStatement checkStmt = conn.prepareStatement(checkQuery);
-//          PreparedStatement deleteStmt = conn.prepareStatement(deleteQuery)) {
-//         //checkStmt.setString(1, hallId);
-//         //ResultSet rs = checkStmt.executeQuery();
-////         if (rs.next()) {
-////             System.out.println("❌ Cannot delete hall. It has active bookings.");
-////             return false;
-////         }
-//         deleteStmt.setString(1, hallId);
-//         return deleteStmt.executeUpdate() > 0;
-//     } catch (Exception e) {
-//         e.printStackTrace();
-//         return false;
-//     }
 

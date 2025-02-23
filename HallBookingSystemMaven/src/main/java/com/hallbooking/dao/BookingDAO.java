@@ -107,21 +107,39 @@ public class BookingDAO {
         }
     }
 
-    public static boolean cancelBooking(int bookingId) {
-        String query = "DELETE FROM HALLBOOKINGSYSTEM.booking WHERE booking_id = ?";
-        
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+    public static boolean cancelBooking(int bookingId, int userId) {
+        String checkQuery = "SELECT user_id FROM HALLBOOKINGSYSTEM.booking WHERE booking_id = ?";
+        String deleteQuery = "DELETE FROM HALLBOOKINGSYSTEM.booking WHERE booking_id = ? AND user_id = ?";
 
-            pstmt.setInt(1, bookingId);
-            int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0; 
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement checkStmt = conn.prepareStatement(checkQuery);
+             PreparedStatement deleteStmt = conn.prepareStatement(deleteQuery)) {
+
+            checkStmt.setInt(1, bookingId);
+            ResultSet rs = checkStmt.executeQuery();
+
+            if (rs.next()) {
+                int ownerUserId = rs.getInt("user_id");
+
+                if (ownerUserId != userId) {
+                    System.out.println("Cancellation failed. You can only cancel your own bookings.");
+                    return false;
+                }
+                deleteStmt.setInt(1, bookingId);
+                deleteStmt.setInt(2, userId);
+                int rowsAffected = deleteStmt.executeUpdate();
+                return rowsAffected > 0;
+            } else {
+                System.out.println("Cancellation failed. Booking ID not found.");
+                return false;
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
+
 
     
 }

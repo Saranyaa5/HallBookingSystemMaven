@@ -12,7 +12,8 @@ public class App {
 
         while (true) {
             try {
-                System.out.println("\nWelcome to the Hall Booking System!");
+                System.out.println("\t------Welcome to the Hall Booking System!--------");
+                System.out.println();
                 System.out.println("Enter the application as:");
                 System.out.println("1. Customer");
                 System.out.println("2. Admin");
