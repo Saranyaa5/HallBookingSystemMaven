@@ -70,8 +70,45 @@ public class CustomerService {
 
         if (customer != null) {
             System.out.println("Login successful! Welcome, " + customer.getName());
+            customerDashboard(scanner,customer.getUserId());
         } else {
             System.out.println("Invalid credentials. Try again.");
         }
     }
+    
+    private static void customerDashboard(Scanner scanner, int userId) {
+        while (true) {
+            System.out.println("\nChoose an option:");
+            System.out.println("1. Search Hall");
+            System.out.println("2. Book Hall");
+            System.out.println("3. Cancel Booked Hall");
+            System.out.println("4. View Pricing of Halls");
+            System.out.println("5. Make Payment");
+            System.out.println("6. Logout from customer section");
+            System.out.print("Enter choice: ");
+
+            if (!scanner.hasNextInt()) {
+                System.err.println("Invalid input! Please enter a number.");
+                scanner.next();
+                continue;
+            }
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 2:
+                    BookingService.bookHall(scanner, userId);
+                    break;
+                case 3:
+                	BookingService.cancelBooking(scanner,userId);
+                	break;
+                case 6:
+                    return;
+                default:
+                    System.out.println("Feature coming soon!");
+            }
+        }
+    }
+
 }
