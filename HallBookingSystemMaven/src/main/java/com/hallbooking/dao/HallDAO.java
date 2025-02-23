@@ -1,6 +1,7 @@
 package com.hallbooking.dao;
 
 import com.hallbooking.model.Hall;
+
 import com.hallbooking.utils.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,18 +23,34 @@ public class HallDAO {
             return false;
         }
     }
-
     public boolean deleteHall(String hallId) {
+        String checkQuery = "SELECT * FROM HALLBOOKINGSYSTEM.bookings WHERE hall_id = ?";
         String deleteQuery = "DELETE FROM HALLBOOKINGSYSTEM.halls WHERE hall_id = ?";
+        
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement deleteStmt = conn.prepareStatement(deleteQuery)) {
-            deleteStmt.setString(1, hallId);
-            return deleteStmt.executeUpdate() > 0;
+             PreparedStatement checkStmt = conn.prepareStatement(checkQuery)) {
+            
+            checkStmt.setString(1, hallId);
+            ResultSet rs = checkStmt.executeQuery();
+            
+            if (rs.next()) {
+                System.out.println("❌ Cannot delete hall. It has active bookings.");
+                return false;
+            }
+            
+            try (PreparedStatement deleteStmt = conn.prepareStatement(deleteQuery)) {
+                deleteStmt.setString(1, hallId);
+                return deleteStmt.executeUpdate() > 0;
+            }
+            
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+
+
+
 }
 
 
@@ -55,59 +72,4 @@ public class HallDAO {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//public boolean deleteHall(String hallId) {
-//    // String checkQuery = "SELECT * FROM bookings WHERE hall_id = ?";
-//     String deleteQuery = "DELETE FROM HALLBOOKINGSYSTEM.halls WHERE hall_id = ?";
-//     try (Connection conn = DBConnection.getConnection();
-//        // PreparedStatement checkStmt = conn.prepareStatement(checkQuery);
-//          PreparedStatement deleteStmt = conn.prepareStatement(deleteQuery)) {
-//         //checkStmt.setString(1, hallId);
-//         //ResultSet rs = checkStmt.executeQuery();
-////         if (rs.next()) {
-////             System.out.println("❌ Cannot delete hall. It has active bookings.");
-////             return false;
-////         }
-//         deleteStmt.setString(1, hallId);
-//         return deleteStmt.executeUpdate() > 0;
-//     } catch (Exception e) {
-//         e.printStackTrace();
-//         return false;
-//     }
 

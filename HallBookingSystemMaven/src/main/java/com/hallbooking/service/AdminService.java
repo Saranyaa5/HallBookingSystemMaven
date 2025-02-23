@@ -17,7 +17,7 @@ public class AdminService {
     public void adminMenu(Scanner scanner) {
         while (true) {
             try {
-                System.out.println("\nAdmin Menu:");
+                System.out.println("Admin Menu:");
                 System.out.println("1. Add a New Hall");
                 System.out.println("2. Delete an Existing Hall");
                 System.out.println("3. Reserve a Hall for a Customer");
