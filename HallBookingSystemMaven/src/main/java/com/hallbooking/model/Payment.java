@@ -1,5 +1,9 @@
 package com.hallbooking.model;
 
-public class Payment {
+import java.util.Scanner;
 
+public class Payment {
+ public static void viewPrice(Scanner sc) {
+	 
+ }
 }

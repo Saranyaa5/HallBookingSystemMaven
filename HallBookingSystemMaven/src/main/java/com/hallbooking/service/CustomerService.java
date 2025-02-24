@@ -2,6 +2,8 @@ package com.hallbooking.service;
 
 import com.hallbooking.dao.CustomerDAO;
 import com.hallbooking.model.Customer;
+import com.hallbooking.model.Payment;
+
 import java.util.Scanner;
 
 public class CustomerService {
@@ -111,11 +113,18 @@ public class CustomerService {
             switch (choice) {
                 case 1:
                 	HallSearch.search(scanner);
+                	break;
                 case 2:
                     BookingService.bookHall(scanner, userId);
                     break;
                 case 3:
                 	BookingService.cancelBooking(scanner,userId);
+                	break;
+                case 4:
+                	Payment.viewPrice(scanner);
+                	break;
+                case 5:
+                	
                 	break;
                 case 6:
                     return;

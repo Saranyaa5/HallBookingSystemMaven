@@ -1,15 +1,11 @@
 package com.hallbooking.service;
 
+import java.sql.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import com.hallbooking.dao.SearchDAO;
 
 public class HallSearch {
-    private static SearchDAO searchDAO;
-
-    public HallSearch() {
-        this.searchDAO = new SearchDAO(); 
-    }
 
     public static void search(Scanner sc) {
         try {
@@ -29,7 +25,7 @@ public class HallSearch {
 
                 switch (choice) {
                     case 1:
-                        searchByDate(sc);
+                    	searchByDate(sc);
                         break;
                     case 2:
                         searchById(sc);
@@ -64,35 +60,89 @@ public class HallSearch {
     }
 
     public static void searchByDate(Scanner sc) {
-//        System.out.print("Enter date (YYYY-MM-DD): ");
-//        String date = sc.nextLine();
-//        boolean isAvailable = searchDAO.searchByDate(date);
-//        if (!isAvailable) {
-//            System.out.println("No halls are available on this date.");
-//        }
+        try {
+            System.out.print("Enter date (YYYY-MM-DD): ");
+            String inputDate = sc.nextLine();
+            Date bookingDate = Date.valueOf(inputDate);
+            SearchDAO searchDAO = new SearchDAO();
+            searchDAO.searchHallsByDate(bookingDate);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid date format! Please enter in YYYY-MM-DD format.");
+        } catch (Exception e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
     }
 
     public static void searchById(Scanner sc) {
-        // Implement logic to search by Hall ID
+        try {
+            System.out.print("Enter Hall ID: ");
+            String hallId = sc.nextLine();
+            SearchDAO searchDAO = new SearchDAO();
+            searchDAO.searchHallById(hallId);
+        } catch (Exception e) {
+            System.out.println("Error searching hall by ID: " + e.getMessage());
+        }
     }
 
     public static void searchByName(Scanner sc) {
-        // Implement logic to search by Name
+        try {
+            System.out.print("Enter Hall Name: ");
+            
+            String hallName = sc.nextLine();
+            SearchDAO searchDAO = new SearchDAO();
+            searchDAO.searchHallByName(hallName);
+        } catch (Exception e) {
+            System.out.println("Error searching hall by name: " + e.getMessage());
+        }
     }
-
     public static void searchByCapacity(Scanner sc) {
-        // Implement logic to search by Capacity
+        try {
+            System.out.print("Enter maximum capacity of hall: ");
+            
+            int capacity = sc.nextInt(); 
+            sc.nextLine();
+            
+            SearchDAO searchDAO = new SearchDAO();
+            searchDAO.searchHallByCapacity(capacity);
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input! Please enter a valid integer capacity.");
+            sc.nextLine(); 
+        } catch (Exception e) {
+            System.out.println("Error searching hall by capacity: " + e.getMessage());
+        }
     }
-
     public static void searchByLocation(Scanner sc) {
-        // Implement logic to search by Location
+    	 try {
+             System.out.print("Enter Location: ");
+             
+             String location = sc.nextLine();
+             SearchDAO searchDAO = new SearchDAO();
+             searchDAO.searchHallByLocation(location);
+         } catch (Exception e) {
+             System.out.println("Error searching hall by name: " + e.getMessage());
+         }
     }
-
     public static void searchByAmenities(Scanner sc) {
-        // Implement logic to search by Amenities
+    	 try {
+             System.out.print("Enter amenity: ");
+             
+             String input = sc.nextLine();
+             SearchDAO searchDAO = new SearchDAO();
+             searchDAO.searchHallByAmenities(input);
+         } catch (Exception e) {
+             System.out.println("Error searching hall by name: " + e.getMessage());
+         }
+    }
+    public static void showAllHalls() {
+        SearchDAO searchDAO = new SearchDAO();
+        searchDAO.searchAllHalls();
     }
 
-    public static void showAllHalls() {
-        // Implement logic to show all halls
-    }
+
+
 }
+
+    
+
+    
+
