@@ -1,6 +1,7 @@
 package com.hallbooking.service;
 
 import com.hallbooking.dao.HallDAO;
+import com.hallbooking.utils.EmailUtil;
 import com.hallbooking.model.Hall;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -15,6 +16,8 @@ public class AdminService {
     }
 
     public void adminMenu(Scanner scanner) {
+    	//EmailUtil.sendEmail("saranyarajamani97@gmail.com", "Admin login", "Your admin login is successful.");
+
         while (true) {
             try {
                 System.out.println("Admin Menu:");
@@ -57,7 +60,8 @@ public class AdminService {
         }
     }
 
-    private void addHall(Scanner scanner) {
+
+	private void addHall(Scanner scanner) {
         try {
             System.out.print("Enter Hall ID: ");
             String hallId = scanner.nextLine();

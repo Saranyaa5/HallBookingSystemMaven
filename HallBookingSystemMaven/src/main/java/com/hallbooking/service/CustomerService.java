@@ -106,11 +106,11 @@ public class CustomerService {
                 scanner.next();
                 continue;
             }
-
             int choice = scanner.nextInt();
             scanner.nextLine();
-
             switch (choice) {
+                case 1:
+                	HallSearch.search(scanner);
                 case 2:
                     BookingService.bookHall(scanner, userId);
                     break;
