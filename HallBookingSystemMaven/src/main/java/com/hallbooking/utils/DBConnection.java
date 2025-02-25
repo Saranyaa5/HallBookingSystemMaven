@@ -7,8 +7,8 @@ import java.sql.SQLException;
 
 public class DBConnection {
     private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-    private static final String USER = "hallbookingsystem";
-    private static final String PASSWORD = "saranya";
+    private static final String USER = "system";
+    private static final String PWD = "Tiger";
 
     static {
         try {
@@ -20,7 +20,7 @@ public class DBConnection {
 
     public static Connection getConnection() {
         try {
-            return DriverManager.getConnection(URL, USER, PASSWORD);
+            return DriverManager.getConnection(URL, USER, PWD);
         } catch (SQLException e) {
             throw new RuntimeException("Error connecting to the database", e);
         }

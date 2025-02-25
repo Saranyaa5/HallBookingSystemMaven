@@ -1,14 +1,20 @@
 package com.hallbooking.service;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+
+import com.hallbooking.dao.HallDAO;
 import com.hallbooking.dao.SearchDAO;
+import com.hallbooking.model.Hall;
 
 public class HallSearch {
     private static SearchDAO searchDAO;
+    private static HallDAO hallDAO; // Add HallDAO
 
     public HallSearch() {
-        this.searchDAO = new SearchDAO(); 
+        this.searchDAO = new SearchDAO();
+        this.hallDAO = new HallDAO(); // Initialize HallDAO
     }
 
     public static void search(Scanner sc) {
@@ -64,20 +70,49 @@ public class HallSearch {
     }
 
     public static void searchByDate(Scanner sc) {
-//        System.out.print("Enter date (YYYY-MM-DD): ");
-//        String date = sc.nextLine();
-//        boolean isAvailable = searchDAO.searchByDate(date);
-//        if (!isAvailable) {
-//            System.out.println("No halls are available on this date.");
-//        }
+        // System.out.print("Enter date (YYYY-MM-DD): ");
+        // String date = sc.nextLine();
+        // boolean isAvailable = searchDAO.searchByDate(date);
+        // if (!isAvailable) {
+        //     System.out.println("No halls are available on this date.");
+        // }
     }
 
     public static void searchById(Scanner sc) {
-        // Implement logic to search by Hall ID
+        System.out.print("Enter Hall ID: ");
+        String hallId = sc.nextLine();
+        Hall hall = hallDAO.searchByHallId(hallId);
+
+        if (hall != null) {
+            System.out.println("\nHall Details:");
+            System.out.println("ID: " + hall.getHallId());
+            System.out.println("Name: " + hall.getHallName());
+            System.out.println("Location: " + hall.getLocation());
+            System.out.println("Capacity: " + hall.getCapacity());
+            System.out.println("Amenities: " + hall.getAmenities());
+        } else {
+            System.out.println("No hall found with ID: " + hallId);
+        }
     }
 
     public static void searchByName(Scanner sc) {
-        // Implement logic to search by Name
+        System.out.print("Enter Hall Name: ");
+        String name = sc.nextLine();
+        List<Hall> halls = hallDAO.searchByName(name);
+
+        if (!halls.isEmpty()) {
+            System.out.println("\nMatching Halls:");
+            for (Hall hall : halls) {
+                System.out.println("ID: " + hall.getHallId());
+                System.out.println("Name: " + hall.getHallName());
+                System.out.println("Location: " + hall.getLocation());
+                System.out.println("Capacity: " + hall.getCapacity());
+                System.out.println("Amenities: " + hall.getAmenities());
+                System.out.println("-----------------------------");
+            }
+        } else {
+            System.out.println("No halls found with name: " + name);
+        }
     }
 
     public static void searchByCapacity(Scanner sc) {

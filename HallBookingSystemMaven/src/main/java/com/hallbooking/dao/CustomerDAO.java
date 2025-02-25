@@ -1,3 +1,4 @@
+
 package com.hallbooking.dao;
 
 import com.hallbooking.model.Customer;

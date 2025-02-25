@@ -1,75 +1,82 @@
+
 package com.hallbooking.dao;
 
 import com.hallbooking.model.Hall;
-
 import com.hallbooking.utils.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HallDAO {
-    public boolean addHall(Hall hall) {
-        String query = "INSERT INTO HALLBOOKINGSYSTEM.halls (hall_id, hall_name, capacity, amenities, location) VALUES (?, ?, ?, ?, ?)";
+
+    public Hall searchByHallId(String hallId) {
+        String query = "SELECT * FROM HALLBOOKINGSYSTEM.halls WHERE hall_id = ?";
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, hall.getHallId());
-            stmt.setString(2, hall.getHallName());
-            stmt.setInt(3, hall.getCapacity());
-            stmt.setString(4, hall.getAmenities());
-            stmt.setString(5, hall.getLocation());
-            return stmt.executeUpdate() > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-    public boolean deleteHall(String hallId) {
-        String checkQuery = "SELECT * FROM HALLBOOKINGSYSTEM.bookings WHERE hall_id = ?";
-        String deleteQuery = "DELETE FROM HALLBOOKINGSYSTEM.halls WHERE hall_id = ?";
-        
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement checkStmt = conn.prepareStatement(checkQuery)) {
-            
-            checkStmt.setString(1, hallId);
-            ResultSet rs = checkStmt.executeQuery();
-            
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, hallId);
+            ResultSet rs = pstmt.executeQuery();
+
             if (rs.next()) {
-                System.out.println("❌ Cannot delete hall. It has active bookings.");
-                return false;
+                return new Hall(
+                        rs.getString("hall_id"),
+                        rs.getString("hall_name"),
+                        rs.getInt("capacity"),
+                        rs.getString("amenities"),
+                        rs.getString("location")
+                );
             }
-            
-            try (PreparedStatement deleteStmt = conn.prepareStatement(deleteQuery)) {
-                deleteStmt.setString(1, hallId);
-                return deleteStmt.executeUpdate() > 0;
-            }
-            
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.err.println("Error searching hall by ID: " + e.getMessage());
             e.printStackTrace();
-            return false;
         }
+        return null; 
     }
+    public List<Hall> searchByName(String name) {
+        List<Hall> halls = new ArrayList<>();
+        String query = "SELECT * FROM HALLBOOKINGSYSTEM.halls WHERE hall_name LIKE ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, "%" + name + "%");
+            ResultSet rs = pstmt.executeQuery();
 
+            while (rs.next()) {
+                halls.add(new Hall(
+                        rs.getString("hall_id"),
+                        rs.getString("hall_name"),
+                        rs.getInt("capacity"),
+                        rs.getString("amenities"),
+                        rs.getString("location")
+                ));
+            }
+        } catch (SQLException e) {
+            System.err.println("Error searching halls by name: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return halls;
+    }
+    public List<Hall> getAllHalls() {
+        List<Hall> halls = new ArrayList<>();
+        String query = "SELECT * FROM HALLBOOKINGSYSTEM.halls";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            ResultSet rs = pstmt.executeQuery();
 
-
+            while (rs.next()) {
+                halls.add(new Hall(
+                        rs.getString("hall_id"),
+                        rs.getString("hall_name"),
+                        rs.getInt("capacity"),
+                        rs.getString("amenities"),
+                        rs.getString("location")
+                ));
+            }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving all halls: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return halls;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

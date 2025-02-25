@@ -1,3 +1,4 @@
+
 package com.hallbooking.service;
 
 import com.hallbooking.dao.CustomerDAO;
@@ -110,7 +111,8 @@ public class CustomerService {
             scanner.nextLine();
             switch (choice) {
                 case 1:
-                	HallSearch.search(scanner);
+                	HallSearch.search(scanner); 
+
                 case 2:
                     BookingService.bookHall(scanner, userId);
                     break;
