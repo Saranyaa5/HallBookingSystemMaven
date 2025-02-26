@@ -1,6 +1,7 @@
 package com.hallbooking.service;
 
 import com.hallbooking.dao.HallDAO;
+import com.hallbooking.ConsoleColors;
 import com.hallbooking.utils.EmailUtil;
 import com.hallbooking.model.Hall;
 import java.util.InputMismatchException;
