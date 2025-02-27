@@ -1,3 +1,4 @@
+
 package com.hallbooking;
 
 import com.hallbooking.service.AdminService;
@@ -9,11 +10,9 @@ public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         AdminService adminService = new AdminService();
-
         while (true) {
             try {
                 System.out.println("\t------Welcome to the Hall Booking System!--------");
-                System.out.println();
                 System.out.println("Enter the application as:");
                 System.out.println("1. Customer");
                 System.out.println("2. Admin");
@@ -21,7 +20,7 @@ public class App {
                 System.out.print("Enter choice: ");
 
                 if (!scanner.hasNextInt()) {
-                    System.err.println("Invalid input! Please enter a number.");
+                    System.out.println("Invalid input! Please enter a number.");
                     scanner.next();
                     continue;
                 }
@@ -54,10 +53,10 @@ public class App {
                         System.out.println("Invalid choice. Please enter a valid option.");
                 }
             } catch (InputMismatchException e) {
-                System.err.println("Invalid input! Please enter a valid number.");
+                System.out.println("Invalid input! Please enter a valid number.");
                 scanner.nextLine();
             } catch (Exception e) {
-                System.err.println("Unexpected error occurred: " + e.getMessage());
+                System.out.println("Unexpected error occurred: " + e.getMessage());
                 e.printStackTrace();
             }
         }

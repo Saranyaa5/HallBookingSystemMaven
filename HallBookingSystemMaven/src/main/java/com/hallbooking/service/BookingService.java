@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
+import com.hallbooking.ConsoleColors;
 import com.hallbooking.dao.BookingDAO;
 public class BookingService {
 

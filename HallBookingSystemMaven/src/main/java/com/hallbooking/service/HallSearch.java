@@ -1,6 +1,7 @@
 package com.hallbooking.service;
 
 import java.sql.Date;
+import com.hallbooking.ConsoleColors;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import com.hallbooking.dao.SearchDAO;
