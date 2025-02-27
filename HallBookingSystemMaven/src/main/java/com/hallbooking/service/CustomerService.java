@@ -129,16 +129,17 @@ public class CustomerService {
                     BookingService.cancelBooking(scanner, userId);
                     break;
                 case 4:
-                    //Payment.viewPrice(scanner);
+                    PriceService.viewPrice(scanner);
                     break;
                 case 5:
-                   // Payment functionality
+                    PaymentService.makePayment(scanner, userId);
                     break;
                 case 6:
                     return;
                 default:
-                    System.out.println("Feature coming soon!");
+                    System.out.println("invalid input!");
             }
         }
     }
+
 }
