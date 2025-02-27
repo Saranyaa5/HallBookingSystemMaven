@@ -57,25 +57,6 @@ public class BookingDAO {
 	        e.printStackTrace();
 	    }
 	}
-//
-//    public static boolean bookhall(int userId, String hallId, Date bookingDate) {
-//        String query = "INSERT INTO HALLBOOKINGSYSTEM.booking (booking_id, user_id, hall_id, booking_date) " +
-//                       "VALUES (booking_id_sequence.NEXTVAL, ?, ?, ?)";
-//
-//        try (Connection conn = DBConnection.getConnection();
-//             PreparedStatement pstmt = conn.prepareStatement(query)) {
-//
-//            pstmt.setInt(1, userId);
-//            pstmt.setString(2, hallId);
-//            pstmt.setDate(3, bookingDate);
-//
-//            int rowsInserted = pstmt.executeUpdate();
-//            return rowsInserted > 0;
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return false;
-//    }
 	public static boolean bookhall(int userId, String hallId, Date bookingDate) {
 	    String bookingQuery = "INSERT INTO HALLBOOKINGSYSTEM.booking (booking_id, user_id, hall_id, booking_date) " +
 	                          "VALUES (booking_id_sequence.NEXTVAL, ?, ?, ?)";
@@ -146,38 +127,6 @@ public class BookingDAO {
         }
     }
 
-//    public static boolean cancelBooking(int bookingId, int userId) {
-//        String checkQuery = "SELECT user_id FROM HALLBOOKINGSYSTEM.booking WHERE booking_id = ?";
-//        String deleteQuery = "DELETE FROM HALLBOOKINGSYSTEM.booking WHERE booking_id = ? AND user_id = ?";
-//
-//        try (Connection conn = DBConnection.getConnection();
-//             PreparedStatement checkStmt = conn.prepareStatement(checkQuery);
-//             PreparedStatement deleteStmt = conn.prepareStatement(deleteQuery)) {
-//
-//            checkStmt.setInt(1, bookingId);
-//            ResultSet rs = checkStmt.executeQuery();
-//
-//            if (rs.next()) {
-//                int ownerUserId = rs.getInt("user_id");
-//
-//                if (ownerUserId != userId) {
-//                    System.out.println("Cancellation failed. You can only cancel your own bookings.");
-//                    return false;
-//                }
-//                deleteStmt.setInt(1, bookingId);
-//                deleteStmt.setInt(2, userId);
-//                int rowsAffected = deleteStmt.executeUpdate();
-//                return rowsAffected > 0;
-//            } else {
-//                System.out.println("Cancellation failed. Booking ID not found.");
-//                return false;
-//            }
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return false;
-//    }
     public static boolean cancelBooking(int bookingId, int userId) {
         String checkQuery = "SELECT user_id FROM HALLBOOKINGSYSTEM.booking WHERE booking_id = ?";
         String paymentCheckQuery = "SELECT status FROM HALLBOOKINGSYSTEM.payment WHERE booking_id = ?";

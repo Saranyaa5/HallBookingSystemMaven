@@ -15,16 +15,34 @@ public class Payment {
         this.status = "PENDING"; 
     }
 
-    public int getPaymentId() { return paymentId; }
-    public void setPaymentId(int paymentId) { this.paymentId = paymentId; }
+    public int getPaymentId() {
+    	return paymentId; 
+    	}
+    public void setPaymentId(int paymentId) {
+    	this.paymentId = paymentId;
+    	}
 
-    public int getBookingId() { return bookingId; }
-    public int getUserId() { return userId; }
-    public double getAmount() { return amount; }
+    public int getBookingId() {
+    	return bookingId; 
+    	}
+    public int getUserId() {
+    	return userId; 
+    	}
+    public double getAmount() { 
+    	return amount;
+    	}
 
-    public String getPaymentMode() { return paymentMode; }
-    public void setPaymentMode(String paymentMode) { this.paymentMode = paymentMode; }
+    public String getPaymentMode() {
+    	return paymentMode; 
+    	}
+    public void setPaymentMode(String paymentMode) { 
+    	this.paymentMode = paymentMode; 
+    	}
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public String getStatus() {
+    	return status; 
+    	}
+    public void setStatus(String status) { 
+    	this.status = status; 
+    	}
 }

@@ -15,7 +15,7 @@ public class AdminService {
     private static final String ADMIN_USERNAME = "admin";
     private static final String ADMIN_PASSWORD = "admin123";
     private final HallDAO hallDAO = new HallDAO();
-    private final BookingDAO bookingDAO = new BookingDAO();  // Added in the second version
+    private final BookingDAO bookingDAO = new BookingDAO(); 
 
 
     public boolean adminLogin(String username, String password) {
