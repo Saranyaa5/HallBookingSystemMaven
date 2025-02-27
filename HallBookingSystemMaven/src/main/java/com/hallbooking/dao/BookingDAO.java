@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hallbooking.model.Booking;
 import com.hallbooking.utils.DBConnection;
 
 public class BookingDAO {
@@ -85,7 +86,7 @@ public class BookingDAO {
 	         PreparedStatement bookingStmt = conn.prepareStatement(bookingQuery);
 	         PreparedStatement paymentStmt = conn.prepareStatement(paymentQuery)) {
 
-	        conn.setAutoCommit(false); // Start transaction
+	        conn.setAutoCommit(false); 
 
 	        bookingStmt.setInt(1, userId);
 	        bookingStmt.setString(2, hallId);
@@ -105,7 +106,7 @@ public class BookingDAO {
 	            }
 	        }
 
-	        conn.rollback(); // Rollback if any issue occurs
+	        conn.rollback();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
@@ -189,7 +190,7 @@ public class BookingDAO {
              PreparedStatement deletePaymentStmt = conn.prepareStatement(deletePaymentQuery);
              PreparedStatement deleteBookingStmt = conn.prepareStatement(deleteBookingQuery)) {
 
-            conn.setAutoCommit(false); // Start transaction
+            conn.setAutoCommit(false); 
 
             checkStmt.setInt(1, bookingId);
             ResultSet rs = checkStmt.executeQuery();
@@ -201,8 +202,6 @@ public class BookingDAO {
                     System.out.println("Cancellation failed. You can only cancel your own bookings.");
                     return false;
                 }
-
-                // Check payment status
                 paymentCheckStmt.setInt(1, bookingId);
                 ResultSet paymentRs = paymentCheckStmt.executeQuery();
 
@@ -211,11 +210,9 @@ public class BookingDAO {
                     return false;
                 }
 
-                // Delete payment entry if pending
                 deletePaymentStmt.setInt(1, bookingId);
                 deletePaymentStmt.executeUpdate();
 
-                // Delete booking entry
                 deleteBookingStmt.setInt(1, bookingId);
                 deleteBookingStmt.setInt(2, userId);
                 int rowsAffected = deleteBookingStmt.executeUpdate();
@@ -233,7 +230,28 @@ public class BookingDAO {
         }
         return false;
     }
+    public List<Booking> getBookingsByHallId(String hallId) {
+        List<Booking> bookings = new ArrayList<>();
+        String query = "SELECT booking_id, user_id, booking_date FROM HALLBOOKINGSYSTEM.booking WHERE hall_id = ?";
 
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, hallId);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int bookingId = rs.getInt("booking_id");
+                int userId = rs.getInt("user_id");
+                Date bookingDate = rs.getDate("booking_date");
+
+                bookings.add(new Booking(bookingId, userId, hallId, bookingDate));  
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bookings;
+    }
 
 
     

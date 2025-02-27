@@ -7,7 +7,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HallDAO {
@@ -27,7 +29,7 @@ public class HallDAO {
         }
     }
     public boolean deleteHall(String hallId) {
-        String checkQuery = "SELECT * FROM HALLBOOKINGSYSTEM.bookings WHERE hall_id = ?";
+        String checkQuery = "SELECT * FROM HALLBOOKINGSYSTEM.booking WHERE hall_id = ?";
         String deleteQuery = "DELETE FROM HALLBOOKINGSYSTEM.halls WHERE hall_id = ?";
         
         try (Connection conn = DBConnection.getConnection();
@@ -37,7 +39,7 @@ public class HallDAO {
             ResultSet rs = checkStmt.executeQuery();
             
             if (rs.next()) {
-                System.out.println("❌ Cannot delete hall. It has active bookings.");
+                System.out.println("Cannot delete hall. It has active bookings.");
                 return false;
             }
             
@@ -51,16 +53,41 @@ public class HallDAO {
             return false;
         }
     }
+    
+    public List<Hall> getAllHalls() {
+        List<Hall> halls = new ArrayList<>();
+        String query = "SELECT * FROM HALLBOOKINGSYSTEM.halls";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Hall hall = new Hall(
+                    rs.getString("hall_id"),
+                    rs.getString("hall_name"),
+                    rs.getInt("capacity"),
+                    rs.getString("amenities"),
+                    rs.getString("location")
+                );
+                halls.add(hall);
+            }
+        } catch (Exception e) {
+            System.err.println("Error retrieving halls: " + e.getMessage());
+        }
+        return halls;
+    }
+    
     public static double calculateAmount(String hallId) {
         String query = "SELECT capacity, amenities FROM HALLBOOKINGSYSTEM.halls WHERE hall_id = ?";
         double basePricePerPerson = 50.0; 
 
         Map<String, Double> amenityCharges = new HashMap<>();
-        amenityCharges.put("AC", 500.0);
-        amenityCharges.put("PARKING", 200.0);
-        amenityCharges.put("WIFI", 150.0);
-        amenityCharges.put("PROJECTOR", 300.0);
-        amenityCharges.put("SOUND_SYSTEM", 250.0);
+        amenityCharges.put("AC", 10000.0);
+        amenityCharges.put("PARKING", 5000.0);
+        amenityCharges.put("WIFI", 2000.0);
+        amenityCharges.put("PROJECTOR", 1000.0);
+        amenityCharges.put("SOUND_SYSTEM", 500.0);
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {

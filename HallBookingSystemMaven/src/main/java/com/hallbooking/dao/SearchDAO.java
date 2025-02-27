@@ -28,9 +28,10 @@ public class SearchDAO {
         }
     }
 
+   
     public void searchHallById(String id) {
         String hallQuery = "SELECT * FROM HALLBOOKINGSYSTEM.halls WHERE hall_id = ?";
-        String bookingQuery = "SELECT booking_date FROM HALLBOOKINGSYSTEM.booking WHERE hall_id = ?";
+        String bookingQuery = "SELECT hall_id, booking_date FROM HALLBOOKINGSYSTEM.booking WHERE hall_id = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement hallStmt = conn.prepareStatement(hallQuery);
@@ -50,6 +51,7 @@ public class SearchDAO {
             System.out.println("Error fetching hall details: " + e.getMessage());
         }
     }
+
 
     public void searchHallByName(String name) {
         String hallQuery = "SELECT * FROM HALLBOOKINGSYSTEM.halls WHERE LOWER(hall_name) = LOWER(?)";
@@ -176,6 +178,7 @@ public class SearchDAO {
         System.out.printf("%-10s %-15s\n", "Hall ID", "Booking Date");
         System.out.println("-----------------------------------------------------------");
 
+      
         while (rs.next()) {
             found = true;
             System.out.printf("%-10s %-15s\n",
