@@ -1,5 +1,4 @@
 package com.hallbooking.model;
-
 public class Hall {
     private String hallId;
     private String hallName;
@@ -15,9 +14,19 @@ public class Hall {
         this.location = location;
     }
 
+    // Getters and Setters
     public String getHallId() { return hallId; }
+    public void setHallId(String hallId) { this.hallId = hallId; }
+    
     public String getHallName() { return hallName; }
+    public void setHallName(String hallName) { this.hallName = hallName; }
+    
     public int getCapacity() { return capacity; }
+    public void setCapacity(int capacity) { this.capacity = capacity; }
+    
     public String getAmenities() { return amenities; }
+    public void setAmenities(String amenities) { this.amenities = amenities; }
+    
     public String getLocation() { return location; }
+    public void setLocation(String location) { this.location = location; }
 }

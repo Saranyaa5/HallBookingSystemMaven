@@ -23,4 +23,13 @@ public class Booking {
 		this.bookingId=bookingId;
 		
 	}
+	public Booking(int bookingId, int userId, String hallId, Date bookingDate) {
+        this.bookingId = bookingId;
+        this.userId = userId;
+        this.hallId = hallId;
+        this.bookingDate = bookingDate;
+    }
+
+
+	
 }

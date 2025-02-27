@@ -4,14 +4,14 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
+import com.hallbooking.ConsoleColors;
 import com.hallbooking.dao.BookingDAO;
 public class BookingService {
 
 	public static void bookHall(Scanner scanner, int userId) {
-        // Display all halls and their booked dates
+        
         BookingDAO.displayHallBookings();
 
-        // Proceed with booking input
         System.out.print("\nEnter Hall ID to book: ");
         String hallId = scanner.nextLine();
 
