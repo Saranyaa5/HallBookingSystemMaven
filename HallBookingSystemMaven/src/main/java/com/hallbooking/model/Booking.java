@@ -7,6 +7,15 @@ public class Booking {
     private int userId;
     private String hallId;
     private Date bookingDate;
+    
+    
+    public Booking(int bookingId, int userId, String hallId, Date bookingDate) {
+        this.bookingId = bookingId;
+        this.userId = userId;
+        this.hallId = hallId;
+        this.bookingDate = bookingDate;
+    }
+
 
     public Booking(int userId, String hallId, Date bookingDate) {
         this.userId = userId;

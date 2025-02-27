@@ -1,21 +1,11 @@
 package com.hallbooking.service;
 
+import java.sql.Date;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
-
-import com.hallbooking.dao.HallDAO;
 import com.hallbooking.dao.SearchDAO;
-import com.hallbooking.model.Hall;
 
 public class HallSearch {
-    private static SearchDAO searchDAO;
-    private static HallDAO hallDAO; // Add HallDAO
-
-    public HallSearch() {
-        this.searchDAO = new SearchDAO();
-        this.hallDAO = new HallDAO(); // Initialize HallDAO
-    }
 
     public static void search(Scanner sc) {
         try {
@@ -35,7 +25,7 @@ public class HallSearch {
 
                 switch (choice) {
                     case 1:
-                        searchByDate(sc);
+                    	searchByDate(sc);
                         break;
                     case 2:
                         searchById(sc);
@@ -70,64 +60,84 @@ public class HallSearch {
     }
 
     public static void searchByDate(Scanner sc) {
-        // System.out.print("Enter date (YYYY-MM-DD): ");
-        // String date = sc.nextLine();
-        // boolean isAvailable = searchDAO.searchByDate(date);
-        // if (!isAvailable) {
-        //     System.out.println("No halls are available on this date.");
-        // }
+        try {
+            System.out.print("Enter date (YYYY-MM-DD): ");
+            String inputDate = sc.nextLine();
+            Date bookingDate = Date.valueOf(inputDate);
+            SearchDAO searchDAO = new SearchDAO();
+            searchDAO.searchHallsByDate(bookingDate);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid date format! Please enter in YYYY-MM-DD format.");
+        } catch (Exception e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
     }
 
     public static void searchById(Scanner sc) {
-        System.out.print("Enter Hall ID: ");
-        String hallId = sc.nextLine();
-        Hall hall = hallDAO.searchByHallId(hallId);
-
-        if (hall != null) {
-            System.out.println("\nHall Details:");
-            System.out.println("ID: " + hall.getHallId());
-            System.out.println("Name: " + hall.getHallName());
-            System.out.println("Location: " + hall.getLocation());
-            System.out.println("Capacity: " + hall.getCapacity());
-            System.out.println("Amenities: " + hall.getAmenities());
-        } else {
-            System.out.println("No hall found with ID: " + hallId);
+        try {
+            System.out.print("Enter Hall ID: ");
+            String hallId = sc.nextLine();
+            SearchDAO searchDAO = new SearchDAO();
+            searchDAO.searchHallById(hallId);
+        } catch (Exception e) {
+            System.out.println("Error searching hall by ID: " + e.getMessage());
         }
     }
 
     public static void searchByName(Scanner sc) {
-        System.out.print("Enter Hall Name: ");
-        String name = sc.nextLine();
-        List<Hall> halls = hallDAO.searchByName(name);
-
-        if (!halls.isEmpty()) {
-            System.out.println("\nMatching Halls:");
-            for (Hall hall : halls) {
-                System.out.println("ID: " + hall.getHallId());
-                System.out.println("Name: " + hall.getHallName());
-                System.out.println("Location: " + hall.getLocation());
-                System.out.println("Capacity: " + hall.getCapacity());
-                System.out.println("Amenities: " + hall.getAmenities());
-                System.out.println("-----------------------------");
-            }
-        } else {
-            System.out.println("No halls found with name: " + name);
+        try {
+            System.out.print("Enter Hall Name: ");
+            
+            String hallName = sc.nextLine();
+            SearchDAO searchDAO = new SearchDAO();
+            searchDAO.searchHallByName(hallName);
+        } catch (Exception e) {
+            System.out.println("Error searching hall by name: " + e.getMessage());
         }
     }
-
     public static void searchByCapacity(Scanner sc) {
-        // Implement logic to search by Capacity
+        try {
+            System.out.print("Enter maximum capacity of hall: ");
+            
+            int capacity = sc.nextInt(); 
+            sc.nextLine();
+            
+            SearchDAO searchDAO = new SearchDAO();
+            searchDAO.searchHallByCapacity(capacity);
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input! Please enter a valid integer capacity.");
+            sc.nextLine(); 
+        } catch (Exception e) {
+            System.out.println("Error searching hall by capacity: " + e.getMessage());
+        }
     }
-
     public static void searchByLocation(Scanner sc) {
-        // Implement logic to search by Location
+    	 try {
+             System.out.print("Enter Location: ");
+             
+             String location = sc.nextLine();
+             SearchDAO searchDAO = new SearchDAO();
+             searchDAO.searchHallByLocation(location);
+         } catch (Exception e) {
+             System.out.println("Error searching hall by name: " + e.getMessage());
+         }
     }
-
     public static void searchByAmenities(Scanner sc) {
-        // Implement logic to search by Amenities
+    	 try {
+             System.out.print("Enter amenity: ");
+             
+             String input = sc.nextLine();
+             SearchDAO searchDAO = new SearchDAO();
+             searchDAO.searchHallByAmenities(input);
+         } catch (Exception e) {
+             System.out.println("Error searching hall by name: " + e.getMessage());
+         }
+    }
+    public static void showAllHalls() {
+        SearchDAO searchDAO = new SearchDAO();
+        searchDAO.searchAllHalls();
     }
 
-    public static void showAllHalls() {
-        // Implement logic to show all halls
-    }
+
+
 }
