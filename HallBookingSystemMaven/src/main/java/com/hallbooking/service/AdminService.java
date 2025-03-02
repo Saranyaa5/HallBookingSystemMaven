@@ -23,7 +23,6 @@ public class AdminService {
     }
 
     public void adminMenu(Scanner scanner) {
-    	//EmailUtil.sendEmail("saranyarajamani97@gmail.com", "Admin login", "Your admin login is successful.");
 
         while (true) {
             try {

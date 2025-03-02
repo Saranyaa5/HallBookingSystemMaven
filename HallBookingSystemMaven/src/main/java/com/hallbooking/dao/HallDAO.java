@@ -30,7 +30,7 @@ public class HallDAO {
     }
     public boolean deleteHall(String hallId) {
         String checkQuery = "SELECT * FROM HALLBOOKINGSYSTEM.booking WHERE hall_id = ?";
-        String deleteQuery = "DELETE FROM HALLBOOKINGSYSTEM.halls WHERE hall_id = ?";
+        String deleteQuery = "DELETE FROM HALLBOOKINGSYSTEM.hkalls WHERE hall_id = ?";
         
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement checkStmt = conn.prepareStatement(checkQuery)) {
