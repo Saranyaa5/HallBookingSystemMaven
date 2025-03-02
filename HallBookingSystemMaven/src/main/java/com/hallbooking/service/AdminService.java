@@ -2,6 +2,7 @@ package com.hallbooking.service;
 
 import com.hallbooking.dao.BookingDAO;
 
+
 import com.hallbooking.dao.HallDAO;
 import com.hallbooking.ConsoleColors;
 import com.hallbooking.utils.EmailUtil;
@@ -14,25 +15,27 @@ import java.util.*;
 public class AdminService {
     private static final String ADMIN_USERNAME = "admin";
     private static final String ADMIN_PASSWORD = "admin123";
+    
+    static final String ADMIN_EMAIL = "2k21cse128@kiot.ac.in";
     private final HallDAO hallDAO = new HallDAO();
     private final BookingDAO bookingDAO = new BookingDAO(); 
 
 
     public boolean adminLogin(String username, String password) {
         return ADMIN_USERNAME.equals(username) && ADMIN_PASSWORD.equals(password);
+        
     }
-
+    
     public void adminMenu(Scanner scanner) {
-
+    	sendAdminLoginEmail();
         while (true) {
             try {
-                System.out.println("Admin Menu:");
+                System.out.println(ConsoleColors.BOLD+"Admin Menu:"+ConsoleColors.RESET);
                 System.out.println("1. Add a New Hall");
                 System.out.println("2. Delete an Existing Hall");
-                System.out.println("3. Reserve a Hall for a Customer");
-                System.out.println("4. View Reports");
-                System.out.println("5. Logout");
-                System.out.print("Enter your choice: ");
+                System.out.println("3. View Reports");
+                System.out.println("4. Logout");
+                System.out.print(ConsoleColors.YELLOW+"Enter your choice: "+ConsoleColors.RESET);
 
                 int choice = scanner.nextInt();
                 scanner.nextLine();
@@ -44,14 +47,12 @@ public class AdminService {
                     case 2:
                         deleteHall(scanner);
                         break;
+                    
                     case 3:
-                        System.out.println("Reserve Hall feature coming soon!");
-                        break;
-                    case 4:
                     	viewReports();
                         
                         break;
-                    case 5:
+                    case 4:
                         System.out.println("Logging out...");
                         return;
                     default:
@@ -65,6 +66,36 @@ public class AdminService {
                 e.printStackTrace();
             }
         }
+    }
+    private void sendAdminLoginEmail() {
+        String subject = "🔔 Admin Login Notification - Hall Booking System";
+        
+        String body = "<html><head>"
+            + "<style>"
+            + "body { font-family: Arial, sans-serif; color: #333; }"
+            + ".highlight { background-color: yellow; font-weight: bold; padding: 5px; }"
+            + ".options { background-color: #f3f3f3; padding: 10px; border-radius: 5px; }"
+            + ".footer { color: gray; font-size: 14px; margin-top: 20px; }"
+            + "</style></head><body>"
+            
+            + "<p style='color:blue; font-size: 16px;'><b>Dear Admin,</b></p>"
+            + "<p class='highlight'>You have successfully logged into the Hall Booking System.</p>"
+            
+            + "<p>Login Time: <b>" + java.time.LocalDateTime.now() + "</b></p>"
+            
+            + "<p>You can now manage the system using the following options:</p>"
+            + "<div class='options'>"
+            + "<ul>"
+            + "<li><b>1. Add a New Hall</b></li>"
+            + "<li><b>2. Delete an Existing Hall</b></li>"
+            + "<li><b>3. View Reports of All Halls</b></li>"
+            + "</ul>"
+            + "</div>"
+            
+            + "<p class='footer'>Best regards,<br><b>Hall Booking System Team</b></p>"
+            + "</body></html>";
+
+        EmailUtil.sendEmail(ADMIN_EMAIL, subject, body);
     }
 
 
@@ -85,9 +116,9 @@ public class AdminService {
             Hall hall = new Hall(hallId, hallName, capacity, amenities, location);
 
             if (hallDAO.addHall(hall)) {
-                System.out.println("Hall added successfully.");
+                System.out.println(ConsoleColors.GREEN+"Hall added successfully"+ConsoleColors.RESET+"\n");
             } else {
-                System.out.println("Error adding hall. Please try again.");
+                System.out.println("Error adding hall. Please try again.\n");
             }
         } catch (InputMismatchException e) {
             System.err.println("Invalid input for capacity! Please enter a valid number.");
@@ -104,7 +135,7 @@ public class AdminService {
             String hallId = scanner.nextLine();
 
             if (hallDAO.deleteHall(hallId)) {
-                System.out.println("Hall deleted successfully.");
+                System.out.println(ConsoleColors.GREEN+"Hall deleted successfully"+ConsoleColors.RESET+"\n");
             } else {
                 System.out.println("Hall deletion failed (Hall might not exist or has bookings).");
             }

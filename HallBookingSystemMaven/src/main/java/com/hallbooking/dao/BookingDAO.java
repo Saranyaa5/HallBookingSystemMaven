@@ -3,7 +3,7 @@ import java.sql.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import com.hallbooking.ConsoleColors;
 import com.hallbooking.model.Booking;
 import com.hallbooking.utils.DBConnection;
 
@@ -31,7 +31,8 @@ public class BookingDAO {
     }
 
 	public static void displayHallBookings() {
-	    String query = "SELECT h.hall_id, h.hall_name, b.booking_date FROM HALLBOOKINGSYSTEM.halls h " +
+	    String query = "SELECT h.hall_id, h.hall_name, b.booking_date " +
+	                   "FROM HALLBOOKINGSYSTEM.halls h " +
 	                   "LEFT JOIN HALLBOOKINGSYSTEM.booking b ON h.hall_id = b.hall_id " +
 	                   "ORDER BY h.hall_id, b.booking_date";
 
@@ -54,6 +55,7 @@ public class BookingDAO {
 	        }
 
 	    } catch (SQLException e) {
+	        System.err.println("Error displaying hall bookings: " + e.getMessage());
 	        e.printStackTrace();
 	    }
 	}

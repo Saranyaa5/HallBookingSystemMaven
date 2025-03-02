@@ -2,7 +2,7 @@ package com.hallbooking.service;
 
 import com.hallbooking.dao.HallDAO;
 import com.hallbooking.model.Hall;
-
+import com.hallbooking.ConsoleColors;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,11 +11,11 @@ public class PriceService {
         HallDAO hallDAO = new HallDAO();
 
         while (true) {
-            System.out.println("\nView Pricing Options:");
+            System.out.println(ConsoleColors.BOLD+"\nView Pricing Options:"+ConsoleColors.RESET);
             System.out.println("1. View all halls with prices");
             System.out.println("2. View price for a specific hall");
             System.out.println("3. Exit to customer menu");
-            System.out.print("Enter your choice: ");
+            System.out.print(ConsoleColors.YELLOW+"Enter your choice: "+ConsoleColors.RESET);
 
             if (!scanner.hasNextInt()) {
                 System.err.println("Invalid input! Please enter a number.");

@@ -3,6 +3,7 @@ package com.hallbooking.model;
 import com.hallbooking.dao.HallDAO;
 import com.hallbooking.dao.BookingDAO;
 import com.hallbooking.model.Booking; 
+import com.hallbooking.ConsoleColors;
 import java.util.List;
 
 public class Admin {

@@ -67,11 +67,28 @@ public class CustomerService {
         boolean success = customerDAO.registerCustomer(customer);
 
         if (success) {
-            System.out.println(ConsoleColors.GREEN+ConsoleColors.BOLD+"Registration successful! Please login."+ConsoleColors.RESET);
-            String subject = "Welcome to Hall Booking System";
-            String body = "Dear " + name + ",\n\nThank you for registering with us!\n\nYour registration is successful.\n\nBest regards,\nHall Booking System Team";
+            System.out.println(ConsoleColors.GREEN + ConsoleColors.BOLD 
+                + "Registration successful! Please login." + ConsoleColors.RESET);
+
+            String subject = "🎉 Welcome to Hall Booking System!";
+
+            String body = "<html><head>"
+                + "<style>"
+                + "body { font-family: Arial, sans-serif; color: #333; }"
+                + ".highlight { background-color: yellow; font-weight: bold; padding: 5px; }"
+                + ".footer { color: gray; font-size: 14px; margin-top: 20px; }"
+                + "</style></head><body>"
+                + "<p>Dear <b>" + name + "</b>,</p>"
+                + "<p>We’re excited to have you on board! 🎊</p>"
+                + "<p class='highlight'>Your registration is successful!<br>"
+                + "Start booking your perfect venue today.</p>"
+                + "<p>Feel free to explore and reserve the best halls for your events.</p>"
+                + "<p class='footer'>Best regards,<br><b>Hall Booking System Team</b></p>"
+                + "</body></html>";
+
             EmailUtil.sendEmail(email, subject, body);
-        } 
+        }
+
         else {
             System.err.println("Registration failed.");
         }

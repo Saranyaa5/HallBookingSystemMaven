@@ -33,7 +33,7 @@ public class BookingService {
 
             boolean success = BookingDAO.bookhall(userId, hallId, bookingDate);
             if (success) {
-                System.out.println("Booking successful!");
+                System.out.println(ConsoleColors.GREEN+"Booking successful!"+ConsoleColors.RESET);
             } else {
                 System.out.println("Booking failed. Please try again.");
             }
@@ -50,7 +50,7 @@ public class BookingService {
 	    boolean isCancelled = BookingDAO.cancelBooking(bookingId, userId);
 
 	    if (isCancelled) {
-	        System.out.println("Booking cancelled successfully.");
+	        System.out.println(ConsoleColors.GREEN+"Booking cancelled successfully."+ConsoleColors.RESET);
 	    } else {
 	        System.out.println("Cancellation failed. Please check the Booking ID and try again.");
 	    }

@@ -1,7 +1,7 @@
 package com.hallbooking.model;
 
 import java.util.Date;
-
+import com.hallbooking.ConsoleColors;
 public class Booking {
     private int bookingId;
     private int userId;
