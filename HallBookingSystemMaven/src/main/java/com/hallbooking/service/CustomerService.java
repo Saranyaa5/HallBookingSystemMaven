@@ -71,7 +71,8 @@ public class CustomerService {
             String subject = "Welcome to Hall Booking System";
             String body = "Dear " + name + ",\n\nThank you for registering with us!\n\nYour registration is successful.\n\nBest regards,\nHall Booking System Team";
             EmailUtil.sendEmail(email, subject, body);
-        } else {
+        } 
+        else {
             System.err.println("Registration failed.");
         }
     }

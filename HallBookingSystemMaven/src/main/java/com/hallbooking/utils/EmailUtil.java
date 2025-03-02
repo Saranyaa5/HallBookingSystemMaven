@@ -1,6 +1,7 @@
 package com.hallbooking.utils;
 
 import java.util.Properties;
+
 import javax.mail.*;
 import javax.mail.internet.*;
 
