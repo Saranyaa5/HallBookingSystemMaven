@@ -1,5 +1,5 @@
 package com.hallbooking.model;
-
+import com.hallbooking.ConsoleColors;
 public class Customer {
     private int userId;
     private String name;
