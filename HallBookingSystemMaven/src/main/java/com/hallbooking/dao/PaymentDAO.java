@@ -11,7 +11,7 @@ public class PaymentDAO {
         String query = "SELECT B.BOOKING_ID, H.HALL_NAME, B.BOOKING_DATE, P.AMOUNT, P.STATUS " +
                        "FROM HALLBOOKINGSYSTEM.BOOKING B " +
                        "JOIN HALLS H ON B.HALL_ID = H.HALL_ID " +
-                       "JOIN PAYMENT P ON B.BOOKING_ID = P.BOOKING_ID " +
+                       "JOIN HALLBOOKINGSYSTEM.PAYMENT P ON B.BOOKING_ID = P.BOOKING_ID " +
                        "WHERE B.USER_ID = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -46,7 +46,7 @@ public class PaymentDAO {
     }
 
     public double getPaymentAmount(int bookingId) {
-        String query = "SELECT AMOUNT FROM PAYMENT WHERE HALLBOOKINGSYSTEM.BOOKING_ID = ?";
+        String query = "SELECT AMOUNT FROM HALLBOOKINGSYSTEM.PAYMENT WHERE BOOKING_ID = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, bookingId);
