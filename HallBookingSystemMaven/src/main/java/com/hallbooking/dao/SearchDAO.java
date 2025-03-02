@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.hallbooking.utils.DBConnection;
+import com.hallbooking.ConsoleColors;
 
 public class SearchDAO {
 

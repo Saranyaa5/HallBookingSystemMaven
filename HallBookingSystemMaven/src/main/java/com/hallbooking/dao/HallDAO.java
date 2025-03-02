@@ -5,6 +5,7 @@ import com.hallbooking.model.Hall;
 import com.hallbooking.utils.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import com.hallbooking.ConsoleColors;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

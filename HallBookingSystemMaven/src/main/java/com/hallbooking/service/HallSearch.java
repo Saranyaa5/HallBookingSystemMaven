@@ -11,7 +11,7 @@ public class HallSearch {
     public static void search(Scanner sc) {
         try {
             while (true) {
-                System.out.println("\nSearch Options:");
+                System.out.println(ConsoleColors.BOLD+"\nSearch Options:"+ConsoleColors.RESET);
                 System.out.println("1. Search by Date");
                 System.out.println("2. Search by Hall ID");
                 System.out.println("3. Search by Name");
@@ -20,7 +20,7 @@ public class HallSearch {
                 System.out.println("6. Search by Amenities");
                 System.out.println("7. Show All Halls");
                 System.out.println("8. Exit search functionality");
-                System.out.print("Enter your choice: ");
+                System.out.print(ConsoleColors.YELLOW+"Enter your choice: "+ConsoleColors.RESET);
                 int choice = sc.nextInt();
                 sc.nextLine();
 
@@ -49,7 +49,7 @@ public class HallSearch {
                     case 8:
                         return;
                     default:
-                        System.out.println("Invalid choice! Try again.");
+                        System.err.println("Invalid choice! Try again.");
                 }
             }
         } catch (InputMismatchException e) {

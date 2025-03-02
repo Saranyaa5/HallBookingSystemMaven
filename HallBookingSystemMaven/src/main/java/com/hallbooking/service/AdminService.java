@@ -14,25 +14,28 @@ import java.util.*;
 public class AdminService {
     private static final String ADMIN_USERNAME = "admin";
     private static final String ADMIN_PASSWORD = "admin123";
+    
+    static final String ADMIN_EMAIL = "2k21ece032@kiot.ac.in";
     private final HallDAO hallDAO = new HallDAO();
     private final BookingDAO bookingDAO = new BookingDAO(); 
 
 
     public boolean adminLogin(String username, String password) {
         return ADMIN_USERNAME.equals(username) && ADMIN_PASSWORD.equals(password);
+        
     }
-
+    
     public void adminMenu(Scanner scanner) {
-
+    	sendAdminLoginEmail();
         while (true) {
             try {
-                System.out.println("Admin Menu:");
+                System.out.println(ConsoleColors.BOLD+"Admin Menu:"+ConsoleColors.RESET);
                 System.out.println("1. Add a New Hall");
                 System.out.println("2. Delete an Existing Hall");
                 System.out.println("3. Reserve a Hall for a Customer");
                 System.out.println("4. View Reports");
                 System.out.println("5. Logout");
-                System.out.print("Enter your choice: ");
+                System.out.print(ConsoleColors.YELLOW+"Enter your choice: "+ConsoleColors.RESET);
 
                 int choice = scanner.nextInt();
                 scanner.nextLine();
@@ -66,7 +69,25 @@ public class AdminService {
             }
         }
     }
-
+    private void sendAdminLoginEmail() {
+        String subject = "Admin Login Notification";
+        String body = "<html><body>"
+        	    + "<p style='color:blue;'>Dear Admin,</p>"
+        	    + "<p><span style='background-color:yellow; font-weight:bold;'>"
+        	    + "You have successfully logged into the Hall Booking System."
+        	    + "</span></p>"
+        	    + "<p>You can access the following options:</p>"
+        	    + "<ul>"
+        	    + "<li>1. Add a New Hall</li>"
+        	    + "<li>2. Delete an Existing Hall</li>"
+        	    + "<li>3. Reserve a Hall for a Customer</li>"
+        	    + "<li>4. View Reports</li>"
+        	    + "<li>5. Logout</li>"
+        	    + "</ul>"
+        	    + "<p style='color:gray;'>Best regards,<br>Hall Booking System Team</p>"
+        	    + "</body></html>";
+        EmailUtil.sendEmail(ADMIN_EMAIL, subject, body);
+    }
 
 	private void addHall(Scanner scanner) {
         try {

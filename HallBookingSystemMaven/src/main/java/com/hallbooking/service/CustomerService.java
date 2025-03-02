@@ -69,8 +69,16 @@ public class CustomerService {
         if (success) {
             System.out.println(ConsoleColors.GREEN+ConsoleColors.BOLD+"Registration successful! Please login."+ConsoleColors.RESET);
             String subject = "Welcome to Hall Booking System";
-            String body = "Dear " + name + ",\n\nThank you for registering with us!\n\nYour registration is successful.\n\nBest regards,\nHall Booking System Team";
+            String body = "<html><body>"
+            	    + "<p>Dear <b>" + name + "</b>,</p>"
+            	    + "<p>Thank you for registering with us!</p>"
+            	    + "<p><span style='background-color:yellow; font-weight:bold;'>"
+            	    + "Your registration is successful."
+            	    + "</span></p>"
+            	    + "<p style='color:gray;'>Best regards,<br>Hall Booking System Team</p>"
+            	    + "</body></html>";
             EmailUtil.sendEmail(email, subject, body);
+            	    
         } 
         else {
             System.err.println("Registration failed.");

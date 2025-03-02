@@ -1,7 +1,7 @@
 package com.hallbooking.service;
 
 import com.hallbooking.dao.PaymentDAO;
-
+import com.hallbooking.ConsoleColors;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -59,7 +59,7 @@ public class PaymentService {
 		                return expiryDate;
 		            }
 		        }
-		        System.out.println("Invalid expiry date. Format: MM/YYYY & should not be expired. Try again.");
+		        System.err.println("Invalid expiry date. Format: MM/YYYY & should not be expired. Try again.");
 		    }
 		}
 
@@ -74,7 +74,7 @@ public class PaymentService {
 		        if (cvv.matches(cvvPattern)) {
 		            return cvv;
 		        }
-		        System.out.println("Invalid CVV. Must be exactly 3 digits. Try again.");
+		        System.err.println("Invalid CVV. Must be exactly 3 digits. Try again.");
 		    }
 		}
 
@@ -103,11 +103,11 @@ public class PaymentService {
 	            return;
 	        }
 
-	        System.out.println("\nSelect Payment Mode:");
+	        System.out.println(ConsoleColors.BOLD+"\nSelect Payment Mode:"+ConsoleColors.RESET);
 	        System.out.println("1. UPI");
 	        System.out.println("2. Credit Card");
 	        System.out.println("3. Debit Card");
-	        System.out.print("Enter choice: ");
+	        System.out.print(ConsoleColors.YELLOW+"Enter choice: "+ConsoleColors.RESET);
 	        int modeChoice = scanner.nextInt();
 	        scanner.nextLine();
 
@@ -151,46 +151,45 @@ public class PaymentService {
 	            }
 	            break;
 
-	            case 2:
-	            case 3:
-	                paymentMode = (modeChoice == 2) ? "CREDIT_CARD" : "DEBIT_CARD";
-	                Map<String, String> cardDetails = paymentDAO.getExistingCardDetails(userId);
+	        case 2:
+	        case 3:
+	            paymentMode = (modeChoice == 2) ? "CREDIT_CARD" : "DEBIT_CARD";
+	            Map<String, String> cardDetails = paymentDAO.getExistingCardDetails(userId); // Use the new method
 
-	                if (!cardDetails.isEmpty()) {
-	                    System.out.println("\n1. Use existing " + paymentMode.replace("_", " ") + " details");
-	                    System.out.println("2. Enter new card details");
-	                    System.out.print("Enter choice: ");
+	            if (!cardDetails.isEmpty()) {
+	                System.out.println("\n1. Use existing " + paymentMode.replace("_", " ") + " details");
+	                System.out.println("2. Enter new card details");
+	                System.out.print("Enter choice: ");
 
-	                    int cardChoice;
-	                    while (true) {
-	                        if (scanner.hasNextInt()) {
-	                            cardChoice = scanner.nextInt();
-	                            scanner.nextLine(); 
-	                            if (cardChoice == 1 || cardChoice == 2) {
-	                                break;
-	                            }
-	                        } else {
-	                            scanner.next();
+	                int cardChoice;
+	                while (true) {
+	                    if (scanner.hasNextInt()) {
+	                        cardChoice = scanner.nextInt();
+	                        scanner.nextLine(); 
+	                        if (cardChoice == 1 || cardChoice == 2) {
+	                            break;
 	                        }
-	                        System.out.print("Invalid choice. Enter 1 or 2: ");
-	                    }
-
-	                    if (cardChoice == 1) {
-	                        paymentDetails = cardDetails.get("cardNumber");
-	                        expiryDate = cardDetails.get("expiryDate");
-	                        cvv = cardDetails.get("cvv");
 	                    } else {
-	                        paymentDetails = getValidCardNumber(scanner);
-	                        expiryDate = getValidExpiryDate(scanner);
-	                        cvv = getValidCVV(scanner);
+	                        scanner.next();
 	                    }
+	                    System.out.print("Invalid choice. Enter 1 or 2: ");
+	                }
+
+	                if (cardChoice == 1) {
+	                    paymentDetails = cardDetails.get("cardNumber");
+	                    expiryDate = cardDetails.get("expiryDate");
+	                    cvv = cardDetails.get("cvv");
 	                } else {
 	                    paymentDetails = getValidCardNumber(scanner);
 	                    expiryDate = getValidExpiryDate(scanner);
 	                    cvv = getValidCVV(scanner);
 	                }
-	                break;
-
+	            } else {
+	                paymentDetails = getValidCardNumber(scanner);
+	                expiryDate = getValidExpiryDate(scanner);
+	                cvv = getValidCVV(scanner);
+	            }
+	            break;
 	            default:
 	                System.err.println("Invalid choice! Payment cancelled.");
 	                return;
@@ -207,9 +206,9 @@ public class PaymentService {
 
         
         if (success) {
-            System.out.println("\n✅ Payment Successful! Your hall booking is confirmed.");
+            System.out.println("\n Payment Successful! Your hall booking is confirmed.");
         } else {
-            System.err.println("❌ Payment Failed! Please try again.");
+            System.err.println(" Payment Failed! Please try again.");
         }
     }
 	    
