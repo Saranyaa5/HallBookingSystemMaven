@@ -199,18 +199,31 @@ public class PaymentDAO {
         String bookingDetails = getBookingDetails(bookingId);
 
         String customerSubject = "Hall Booking Confirmation";
-        String customerBody = "Dear Customer,\n\n" +
-                              "Your hall booking has been confirmed.\n\n" +
-                              "Booking Details:\n" + bookingDetails +
-                              "\n\nThank you for using our service!\n\n" +
-                              "Best regards,\nHall Booking System Team";
+        String customerBody = "<html><body>"
+        	    + "<p style='color:blue;'>Dear Customer,</p>"
+        	    + "<p><span style='background-color:yellow; font-weight:bold;'>"
+        	    + "Your hall booking has been confirmed."
+        	    + "</span></p>"
+        	    + "<p><b>Booking Details:</b></p>"
+        	    + "<p style='border:1px solid black; padding:10px; background-color:#f0f0f0;'>"
+        	    + bookingDetails.replace("\n", "<br>") + "</p>"
+        	    + "<p>Thank you for using our service!</p>"
+        	    + "<p style='color:gray;'>Best regards,<br>Hall Booking System Team</p>"
+        	    + "</body></html>";
+
 
      
         String adminSubject = "New Hall Booking Confirmation";
-        String adminBody = "Dear Admin,\n\n" +
-                           "A new hall booking has been confirmed.\n\n" +
-                           "Booking Details:\n" + bookingDetails +
-                           "\n\nBest regards,\nHall Booking System Team";
+        String adminBody = "<html><body>"
+        	    + "<p style='color:blue;'>Dear Admin,</p>"
+        	    + "<p><span style='background-color:yellow; font-weight:bold;'>"
+        	    + "A new hall booking has been confirmed."
+        	    + "</span></p>"
+        	    + "<p><b>Booking Details:</b></p>"
+        	    + "<p style='border:1px solid black; padding:10px; background-color:#f0f0f0;'>"
+        	    + bookingDetails.replace("\n", "<br>") + "</p>"
+        	    + "<p style='color:gray;'>Best regards,<br>Hall Booking System Team</p>"
+        	    + "</body></html>";
 
         EmailUtil.sendEmail(customerEmail, customerSubject, customerBody);
         EmailUtil.sendEmail(adminEmail, adminSubject, adminBody);

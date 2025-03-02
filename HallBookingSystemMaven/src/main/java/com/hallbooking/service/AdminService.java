@@ -16,7 +16,7 @@ public class AdminService {
     private static final String ADMIN_USERNAME = "admin";
     private static final String ADMIN_PASSWORD = "admin123";
     
-    static final String ADMIN_EMAIL = "2k21cse128@kiot.ac.in";
+    static final String ADMIN_EMAIL = "2k21ece032@kiot.ac.in";
     private final HallDAO hallDAO = new HallDAO();
     private final BookingDAO bookingDAO = new BookingDAO(); 
 
