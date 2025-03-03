@@ -115,7 +115,7 @@ public class PaymentDAO {
             }
 
            
-            String adminEmail = "svgfamily3@gmail.com";
+            String adminEmail = "2k21cse128@kiot.ac.in";
 
             
             String checkPaymentStatusQuery = "SELECT PAYMENT_ID, STATUS FROM PAYMENT WHERE BOOKING_ID = ?";
@@ -198,7 +198,7 @@ public class PaymentDAO {
    
         String bookingDetails = getBookingDetails(bookingId);
 
-        String customerSubject = "Hall Booking Confirmation";
+        String customerSubject = "🔔 Hall Booking Confirmation";
         String customerBody = "<html><body>"
         	    + "<p style='color:blue;'>Dear Customer,</p>"
         	    + "<p><span style='background-color:yellow; font-weight:bold;'>"
@@ -213,7 +213,7 @@ public class PaymentDAO {
 
 
      
-        String adminSubject = "New Hall Booking Confirmation";
+        String adminSubject = "🔔 New Hall Booking Confirmation";
         String adminBody = "<html><body>"
         	    + "<p style='color:blue;'>Dear Admin,</p>"
         	    + "<p><span style='background-color:yellow; font-weight:bold;'>"
@@ -257,7 +257,7 @@ public class PaymentDAO {
 	        PreparedStatement updatePaymentStmt = null;
 	        PreparedStatement insertCardStmt = null;
 	        ResultSet rs = null;
-	        String adminEmail = "svgfamily3@gmail.com";
+	        String adminEmail = "2k21cse128@kiot.ac.in";
 
 	        try {
 	            conn = DBConnection.getConnection();

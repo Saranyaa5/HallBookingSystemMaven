@@ -1,29 +1,27 @@
 package com.hallbooking.service;
 
 import com.hallbooking.dao.BookingDAO;
-
-
 import com.hallbooking.dao.HallDAO;
 import com.hallbooking.ConsoleColors;
 import com.hallbooking.utils.EmailUtil;
 import com.hallbooking.model.Booking;
 import com.hallbooking.model.Hall;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
-import java.util.*;
 
-public class AdminService {
-    private static final String ADMIN_USERNAME = "admin";
-    private static final String ADMIN_PASSWORD = "admin123";
-    
-    static final String ADMIN_EMAIL = "2k21ece032@kiot.ac.in";
+public class AdminService extends AdminCredentials {
+    private static final String ADMIN_EMAIL = "2k21cse128@kiot.ac.in";
     private final HallDAO hallDAO = new HallDAO();
-    private final BookingDAO bookingDAO = new BookingDAO(); 
+    private final BookingDAO bookingDAO = new BookingDAO();
 
+    @Override
+    protected boolean validateAdmin(String username, String password) {
+        return ADMIN_USERNAME.equals(username) && ADMIN_PASSWORD.equals(password);
+    }
 
     public boolean adminLogin(String username, String password) {
-        return ADMIN_USERNAME.equals(username) && ADMIN_PASSWORD.equals(password);
-        
+        return validateAdmin(username, password);
     }
     
     public void adminMenu(Scanner scanner) {
