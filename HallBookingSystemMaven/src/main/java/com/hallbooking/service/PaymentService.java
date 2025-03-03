@@ -5,8 +5,8 @@ import com.hallbooking.ConsoleColors;
 import java.util.Map;
 import java.util.Scanner;
 
-public class PaymentService {
-	 private static PaymentDAO paymentDAO = new PaymentDAO();
+public class PaymentService extends PaymentServiceBase {
+    private static PaymentDAO paymentDAO = new PaymentDAO();
 	 private static String getValidUPI(Scanner scanner) {
 		    String upiPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+$";
 		    String upiID;
@@ -79,8 +79,8 @@ public class PaymentService {
 		}
 
 
-
-	    public static void makePayment(Scanner scanner, int userId) {
+        @Override
+	    public void makePayment(Scanner scanner, int userId) {
 	        System.out.println("\n--- Your Bookings ---");
 	        paymentDAO.displayUserBookings(userId);
 
