@@ -32,8 +32,7 @@ public class App {
                     case 1:
                         CustomerService.customerMenu(scanner);
                         break;
-                    case 2:
-                    	
+                    case 2:	
                         System.out.print("\nEnter admin Username: ");
                         String username = scanner.nextLine();
                         System.out.print("Enter admin Password: ");
@@ -54,10 +53,12 @@ public class App {
                     default:
                         System.out.println("Invalid choice. Please enter a valid option.");
                 }
-            } catch (InputMismatchException e) {
+            }
+            catch (InputMismatchException e) {
                 System.err.println("Invalid input! Please enter a valid number.");
                 scanner.nextLine();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 System.err.println("Unexpected error occurred: " + e.getMessage());
                 e.printStackTrace();
             }
