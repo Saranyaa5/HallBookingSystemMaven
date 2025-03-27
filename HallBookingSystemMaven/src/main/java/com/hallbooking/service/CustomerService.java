@@ -151,6 +151,7 @@ public class CustomerService {
                     break;
                 case 5:
                 	PaymentService obj=new PaymentService();
+                	
                     obj.makePayment(scanner, userId);
                     break;
                 case 6:

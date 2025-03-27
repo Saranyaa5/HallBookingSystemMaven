@@ -123,7 +123,7 @@ public class PaymentService extends PaymentServiceBase {
 
 	            if (existingUPI != null) {
 	                System.out.println("Existing UPI ID found: " + existingUPI);
-	                System.out.println("1. Use existing UPI ID");
+	                System.out.println("1. Use Recently used UPI ID");
 	                System.out.println("2. Enter a new UPI ID");
 	                System.out.print("Enter choice: ");
 
@@ -157,7 +157,7 @@ public class PaymentService extends PaymentServiceBase {
 	            Map<String, String> cardDetails = paymentDAO.getExistingCardDetails(userId); 
 
 	            if (!cardDetails.isEmpty()) {
-	                System.out.println("\n1. Use existing " + paymentMode.replace("_", " ") + " details");
+	                System.out.println("\n1. Use recently used card: " + paymentMode.replace("_", " ") + " details");
 	                System.out.println("2. Enter new card details");
 	                System.out.print("Enter choice: ");
 

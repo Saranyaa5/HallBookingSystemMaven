@@ -24,7 +24,8 @@ public class BookingDAO {
                 int count = rs.getInt(1);
                 return count > 0; 
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
         return false; 

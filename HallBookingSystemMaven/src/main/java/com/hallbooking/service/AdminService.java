@@ -118,10 +118,12 @@ public class AdminService extends AdminCredentials {
             } else {
                 System.out.println("Error adding hall. Please try again.\n");
             }
-        } catch (InputMismatchException e) {
+        }
+        catch (InputMismatchException e) {
             System.err.println("Invalid input for capacity! Please enter a valid number.");
             scanner.nextLine(); 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             System.err.println("Unexpected error: " + e.getMessage());
             e.printStackTrace();
         }

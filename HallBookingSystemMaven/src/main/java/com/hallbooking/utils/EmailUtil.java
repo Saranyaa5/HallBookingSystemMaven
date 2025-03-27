@@ -45,7 +45,8 @@ public class EmailUtil {
 
             Transport.send(message);
             System.out.println(ConsoleColors.GREEN+"Email sent successfully to " + recipient+" "+ConsoleColors.RESET);
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             System.err.println("Error sending email: " + e.getMessage());
             e.printStackTrace();
         }

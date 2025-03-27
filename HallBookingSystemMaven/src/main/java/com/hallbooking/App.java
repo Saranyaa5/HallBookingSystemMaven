@@ -3,6 +3,8 @@ package com.hallbooking;
 
 import com.hallbooking.service.AdminService;
 import com.hallbooking.service.CustomerService;
+import com.hallbooking.utils.DBConnection;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -10,6 +12,8 @@ public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         AdminService adminService = new AdminService();
+        DBConnection.setUserCredentials(scanner);
+        
         while (true) {
             try {
                 System.out.println(ConsoleColors.CYAN+ConsoleColors.BOLD+"\t------Welcome to the Hall Booking System!--------\n"+ConsoleColors.RESET);
@@ -41,7 +45,8 @@ public class App {
                         if (adminService.adminLogin(username, password)) {
            
                             adminService.adminMenu(scanner);
-                        } else {
+                        }
+                        else {
                             System.err.println("Invalid credentials. Try again.");
                         }
                         break;

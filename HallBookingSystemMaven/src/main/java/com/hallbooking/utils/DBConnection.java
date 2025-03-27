@@ -1,21 +1,28 @@
 package com.hallbooking.utils;
 
 import java.sql.Connection;
-
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class DBConnection {
+    private static String USER;
+    private static String PASSWORD;
     private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-    private static final String USER = "HALLBOOKINGSYSTEM";
-    private static final String PASSWORD = "saranya";
 
     static {
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver"); 
+            Class.forName("oracle.jdbc.driver.OracleDriver");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Oracle JDBC Driver not found!", e);
         }
+    }
+
+    public static void setUserCredentials(Scanner sc) {
+        System.out.print("Enter the database username: ");
+        USER = sc.nextLine();
+        System.out.print("Enter the database password: ");
+        PASSWORD = sc.nextLine();
     }
 
     public static Connection getConnection() {

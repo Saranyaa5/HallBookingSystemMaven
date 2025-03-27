@@ -59,7 +59,6 @@
                 <archive>
                     <manifest>
                         <mainClass>com.hallbooking.App</mainClass> 
-                        <!-- Change this to your actual main class -->
                     </manifest>
                 </archive>
             </configuration>

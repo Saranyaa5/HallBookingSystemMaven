@@ -2,6 +2,7 @@ package com.hallbooking.dao;
 
 import com.hallbooking.model.Hall;
 
+
 import com.hallbooking.utils.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
